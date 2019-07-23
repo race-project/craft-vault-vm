@@ -1,0 +1,22 @@
+- name: Check for NCSU_PDK installation
+  stat: path=/shared/software/isi/PDK/NCSU/FreePDK45
+  changed_when: false
+  register: ncsu_pdk
+
+- name: Install NCSU_PDK
+  when: not ncsu_pdk.stat.exists
+  shell: |
+    mkdir -p /shared/software/isi/PDK
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/NCSU-FreePDK45-1.4.tar -C /shared/software/isi/PDK
+
+- name: Check for ISI Flow installation
+  stat: path=/shared/software/isi/isi_flow
+  changed_when: false
+  register: isi_flow
+
+- name: Install ISI Flow
+  when: not isi_flow.stat.exists
+  shell: |
+    mkdir -p /shared/software/isi/
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/isi_flow_v2.0.1.tar.gz -C /shared/software/isi/
+    chmod -R 755 /shared/software/isi/
