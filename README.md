@@ -24,6 +24,11 @@ The CRAFT Vault VM automates the installation and configuration of design flows,
 
 ### Demo ISI Design Flow
 
+- Module system: Lmod 7.7 (File: `Lmod-7.7.tar.bz2`)
+- NCSU Free PDK (File: `NCSU-FreePDK45-1.4.tar`)
+- EPEL Release for CentOS 7 (File: `epel-release-latest-7.noarch.rpm`)
+- ISI Flow 2.0.1 (File: `isi_flow_v2.0.1.tar.gz`)
+
 ---
 
 ## Creating a CRAFT Vault VM
@@ -36,7 +41,7 @@ run-ansible.sh [-h] [-i SYNOPSYS_ID] FLOW_NAME
 
 where:
   -h   Show this help text
-  -f   Flow name (default: isi) [adonis|isi|serdes|tisar]
+  -f   Flow name (default: isi) [isi]
   -i   Install files folder
   -c   Set Cadence License File
   -s   Set Synopsys License File
@@ -46,5 +51,5 @@ where:
 For example:
 
 ```
-$ bash run-ansible.sh -f isi -i /shared/install-files
+$ bash run-ansible.sh -f isi -i /race/install-files
 ```
