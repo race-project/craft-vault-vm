@@ -56,6 +56,11 @@ while getopts ':h:f:i:c:t:s:' option; do
 done
 shift $((OPTIND - 1))
 
+if [ ! -f $FLOW_FILE ]; then
+    echo -e "Unsupported flow. File $FLOW_FILE does not exist"
+    exit 1
+fi
+
 # install ansible
 mkdir -p $ANSIBLE_DIR/
 cd $ANSIBLE_DIR/
@@ -77,11 +82,6 @@ if ! (which ansible-playbook) >/dev/null 2>&1; then
 
     # install ansible
     rpm -Uvh packages/rpm/ansible-2.7.1-1.el7.ans.noarch.rpm
-fi
-
-if [ ! -f $FLOW_FILE ]; then
-    echo -e "Unsupported flow. File $FLOW_FILE does not exist"
-    exit 1
 fi
 
 # exporting environment variables
