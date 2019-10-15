@@ -1,0 +1,83 @@
+- name: Install dependant packages for open-source flow
+  yum:
+    name:
+      - gperf
+      - clang
+      - tcl
+      - tcl-devel
+      - libffi-devel
+      - readline-devel
+      - gcc
+      - openssl-devel
+      - bzip2-devel
+    state: installed
+
+- name: Check for Icarus Verilog installation
+  stat: path=/shared/software/opensource/iverilog-10_3
+  changed_when: false
+  register: icarus_verilog
+
+- name: Install Icarus Verilog
+  when: not icarus_verilog.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/iverilog-10_3.tar.gz -C /shared/software/opensource
+    cd /shared/software/opensource/iverilog-10_3
+    sh autoconf.sh
+    ./configure
+    make
+    make check
+    make install
+
+- name: Check for tcl8.6.9 installation
+  stat: path=/shared/software/opensource/tcl8.6.9
+  changed_when: false
+  register: tcl
+
+- name: Install tcl8.6.9
+  when: not tcl.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/tcl8.6.9-src.tar.gz -C /shared/software/opensource
+    cd /shared/software/opensource/tcl8.6.9
+    cd unix
+    ./configure
+    make
+    make install
+
+- name: Check for Yosys installation
+  stat: path=/shared/software/opensource/yosys-yosys-0.9
+  changed_when: false
+  register: yosys
+
+- name: Install Python3
+  when: not yosys.stat.exists
+  shell: |
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/Python-3.7.2.tgz -C /shared/software/opensource
+    cd Python-3.7.2
+    ./configure
+    ./configure --enable-optimizations
+    make altinstall
+    ln -s /usr/local/bin/python3.7 /usr/local/bin/python3
+
+- name: Install Yosys
+  when: not yosys.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/yosys-0.9.tar.gz -C /shared/software/opensource
+    cd /shared/software/opensource/yosys-yosys-0.9
+    make config-clang
+    make
+    make install
+
+- name: Check for ISI Open-Source Flow installation
+  stat: path=/shared/software/opensource/open_flow
+  changed_when: false
+  register: open_flow
+
+- name: Install ISI Open-Source Flow
+  when: not open_flow.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/open_flow_v1.0.tar.gz -C /shared/software/opensource
+    chmod -R 755 /shared/software/opensource

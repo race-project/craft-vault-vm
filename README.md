@@ -8,7 +8,21 @@ The CRAFT Vault VM automates the installation and configuration of design flows,
 
 ## Pre-Requisites
 
-### Dependencies
+### Open-Source ISI Design Flow
+
+#### Dependencies
+
+- Python 3.7 (File: `Python-3.7.2.tgz`)
+
+#### Software
+
+- Icarus Verilog 10.3 (File: `iverilog-10_3.tar.gz`)
+- TCL 8.6.9 (File: `tcl8.6.9-src.tar.gz`)
+- Yosys Open SYnthesis Suite 0.9 (File: `yosys-0.9.tar.gz`)
+
+### Demo ISI Design Flow
+
+#### Dependencies
 
 - **Cadence**:
   - `cadence_base` and `cadence_virtuoso`: Cadence InstallScape and Virtuoso 12.3 (File: `ICADV12.30.700.tar.gz`)
@@ -22,7 +36,7 @@ The CRAFT Vault VM automates the installation and configuration of design flows,
     - Synopsys PrimeTime (Files: `pts_vO-2018.06-SP5-1_common.spf`, and `pts_vO-2018.06-SP5-1_linux64.spf`)
     - Synopsys RTL Synthesis (Files: `syn_vO-2018.06-SP5-3_common.spf`, and `syn_vO-2018.06-SP5-3_linux64.spf`)
 
-### Demo ISI Design Flow
+#### ISI Design Flow Software
 
 - Module system: Lmod 7.7 (File: `Lmod-7.7.tar.bz2`)
 - NCSU Free PDK (File: `NCSU-FreePDK45-1.4.tar`)
@@ -37,7 +51,7 @@ The CRAFT Vault VM automates the installation and configuration of design flows,
 $ bash run-ansible.sh -h
 Ansible Script for Setting Up RACE VM
 
-run-ansible.sh [-h] [-i SYNOPSYS_ID] FLOW_NAME
+run-ansible.sh [-h] [-i INSTALL_FILES] -f FLOW_NAME
 
 where:
   -h   Show this help text
@@ -51,5 +65,5 @@ where:
 For example:
 
 ```
-$ bash run-ansible.sh -f isi -i /race/install-files
+$ bash run-ansible.sh -f open-source -i /race/install-files
 ```

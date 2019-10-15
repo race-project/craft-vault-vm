@@ -4,25 +4,25 @@ set -e
 
 usage="Ansible Script for Setting Up RACE VM
 
-$(basename "$0") [-h] [-i SYNOPSYS_ID] FLOW_NAME
+$(basename "$0") [-h] [-i INSTALL_FILES] -f FLOW_NAME
 
 where:
   -h   Show this help text
-  -f   Flow name (default: isi) [isi]
+  -f   Flow name (default: opensource) [open-source | isi]
   -i   Install files folder
   -c   Set Cadence License File
   -s   Set Synopsys License File
   -t   Set Synopsys ID
 "
 
-if [ $# -le 2 ]; then
+if [ $# -le 1 ]; then
     echo "$usage"
     exit 1
 fi
 
 # default variable values
 ANSIBLE_DIR=/tmp/race-ansible
-FLOW_FILE=isi.yml
+FLOW_FILE=open-source.yml
 TOP_DIR=/race/install-files
 CADENCE_LICENSE_FILE="1800@license.usc.edu"
 SYNOPSYS_LICENSE_FILE="1720@ics-lic2.usc.edu"
@@ -61,7 +61,7 @@ mkdir -p $ANSIBLE_DIR/
 cd $ANSIBLE_DIR/
 tar xzf $TOP_DIR/ansible.tar.gz
 
-cd $ANSIBLE_DIR/v003
+cd $ANSIBLE_DIR/
 
 if ! (which ansible-playbook) >/dev/null 2>&1; then
     # prereqs
