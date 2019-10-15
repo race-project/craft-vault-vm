@@ -45,20 +45,25 @@
     make
     make install
 
-- name: Check for Yosys installation
-  stat: path=/shared/software/opensource/yosys-yosys-0.9
+- name: Check for Python3 installation
+  stat: path=/shared/software/opensource/Python-3.7.2
   changed_when: false
-  register: yosys
+  register: python3
 
 - name: Install Python3
-  when: not yosys.stat.exists
+  when: not python3.stat.exists
   shell: |
     tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/Python-3.7.2.tgz -C /shared/software/opensource
-    cd Python-3.7.2
+    cd /shared/software/opensource/Python-3.7.2
     ./configure
     ./configure --enable-optimizations
     make altinstall
     ln -s /usr/local/bin/python3.7 /usr/local/bin/python3
+
+- name: Check for Yosys installation
+  stat: path=/shared/software/opensource/yosys-yosys-0.9
+  changed_when: false
+  register: yosys
 
 - name: Install Yosys
   when: not yosys.stat.exists
