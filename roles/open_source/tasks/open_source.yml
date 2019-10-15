@@ -58,7 +58,7 @@
     ./configure
     ./configure --enable-optimizations
     make altinstall
-    ln -s /usr/local/bin/python3.7 /usr/local/bin/python3
+    ln -sf /usr/local/bin/python3.7 /usr/local/bin/python3
 
 - name: Check for Yosys installation
   stat: path=/shared/software/opensource/yosys-yosys-0.9
