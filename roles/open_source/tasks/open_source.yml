@@ -170,7 +170,7 @@
   when: not qflow.stat.exists
   shell: |
     mkdir -p /shared/software/opensource
-    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/qflow-1.4.62 -C /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/qflow-1.4.62.tgz -C /shared/software/opensource
     cd /shared/software/opensource/qflow-1.4.62
     ./configure
     make
