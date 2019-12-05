@@ -176,6 +176,17 @@
     make
     make install
 
+- name: Check for OwlVision installation
+  stat: path=/shared/software/opensource/OwlVision-1_1_10
+  changed_when: false
+  register: owlvision
+
+- name: Install OwlVision
+  when: not owlvision.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/OwlVision-1_1_10.tar.gz -C /shared/software/opensource
+
 - name: Check for ISI Open-Source Flow installation
   stat: path=/shared/software/opensource/open_flow
   changed_when: false
