@@ -68,20 +68,23 @@ tar xzf $TOP_DIR/ansible.tar.gz
 
 cd $ANSIBLE_DIR/
 
+yum config-manager --set-enabled PowerTools
 if ! (which ansible-playbook) >/dev/null 2>&1; then
     # prereqs
-    yum -y install \
-        PyYAML \
-        python-jinja2 \
-        python-paramiko \
-        python-setuptools \
-        python-six \
-        python2-crytography \
-        sshpass \
-        git
+    # yum -y install \
+    #     PyYAML \
+    #     python-jinja2 \
+    #     python-paramiko \
+    #     python-setuptools \
+    #     python-six \
+    #     python2-crytography \
+    #     sshpass \
+    #     git
+    yum install python3 python3-virtualenv python3-pip
 
     # install ansible
-    rpm -Uvh packages/rpm/ansible-2.7.1-1.el7.ans.noarch.rpm
+    # rpm -Uvh packages/rpm/ansible-2.7.1-1.el7.ans.noarch.rpm
+    pip3 install ansible
 fi
 
 # exporting environment variables

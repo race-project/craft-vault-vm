@@ -20,13 +20,13 @@
 - name: Install EPEL
   when: not epel_repo.stat.exists
   shell: |
-      yum install -y {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/epel-release-latest-7.noarch.rpm
+      yum install -y {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/epel-release-latest-8.noarch.rpm
 
 - name: Upgrade all packages
   yum: name=* state=latest
 
 - name: Install packages
-  yum:
+  dnf:
     name:
       - '@Development tools'
       - bzip2
@@ -35,7 +35,6 @@
       - glibc-devel
       - glibc-devel.i686
       - glibc.i686
-      - gnome-desktop
       - htop
       - ksh
       - libGLU

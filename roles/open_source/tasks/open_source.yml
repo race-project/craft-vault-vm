@@ -130,6 +130,21 @@
     make
     make install
 
+- name: Check for Netgen installation
+  stat: path=/shared/software/opensource/netgen-1.5.132
+  changed_when: false
+  register: netgen
+
+- name: Install Netgen
+  when: not netgen.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/netgen-1.5.132.tgz -C /shared/software/opensource
+    cd /shared/software/opensource/netgen-1.5.132
+    ./configure
+    make
+    make install
+
 - name: Check for ISI Open-Source Flow installation
   stat: path=/shared/software/opensource/open_flow
   changed_when: false
