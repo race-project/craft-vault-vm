@@ -190,7 +190,7 @@
 - name: Check for ISI Open-Source Flow installation
   stat: path=/shared/software/opensource/open_flow_v1.1
   changed_when: false
-  register: open_flow
+  register: openflow
 
 - name: Install ISI Open-Source Flow
   when: not openflow.stat.exists
