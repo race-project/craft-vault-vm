@@ -188,13 +188,13 @@
     tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/OwlVision-1_1_10.tar.gz -C /shared/software/opensource
 
 - name: Check for ISI Open-Source Flow installation
-  stat: path=/shared/software/opensource/open_flow
+  stat: path=/shared/software/opensource/open_flow_v1.1
   changed_when: false
   register: open_flow
 
 - name: Install ISI Open-Source Flow
-  when: not open_flow.stat.exists
+  when: not openflow.stat.exists
   shell: |
     mkdir -p /shared/software/opensource
-    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/open_flow_v1.0.tar.gz -C /shared/software/opensource
-    chmod -R 755 /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/open_flow_v1.1.tar.gz -C /shared/software/opensource
+    chmod -R 755 /shared/software/opensource/open_flow_v1.1
