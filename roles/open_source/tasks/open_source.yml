@@ -161,6 +161,21 @@
     make
     make install
 
+- name: Check for Qflow installation
+  stat: path=/shared/software/opensource/qflow-1.4.62
+  changed_when: false
+  register: qflow
+
+- name: Install Qflow
+  when: not qflow.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/qflow-1.4.62 -C /shared/software/opensource
+    cd /shared/software/opensource/qflow-1.4.62
+    ./configure
+    make
+    make install
+
 - name: Check for ISI Open-Source Flow installation
   stat: path=/shared/software/opensource/open_flow
   changed_when: false
