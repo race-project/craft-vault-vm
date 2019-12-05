@@ -80,7 +80,7 @@ if ! (which ansible-playbook) >/dev/null 2>&1; then
     #     python2-crytography \
     #     sshpass \
     #     git
-    yum install python3 python3-virtualenv python3-pip
+    yum -y install python3 python3-virtualenv python3-pip
 
     # install ansible
     # rpm -Uvh packages/rpm/ansible-2.7.1-1.el7.ans.noarch.rpm
