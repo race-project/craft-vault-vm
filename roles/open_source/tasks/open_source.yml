@@ -10,6 +10,14 @@
       - gcc
       - openssl-devel
       - bzip2-devel
+      - cmake
+      - gsl
+      - gsl-devel
+      - tk
+      - tk-devel
+      - mesa-libGLU-devel
+      - cairo-devel
+      - libtool
     state: installed
 
 - name: Check for Icarus Verilog installation
@@ -72,6 +80,53 @@
     tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/yosys-0.9.tar.gz -C /shared/software/opensource
     cd /shared/software/opensource/yosys-yosys-0.9
     make config-clang
+    make
+    make install
+
+- name: Check for gperf installation
+  stat: path=/shared/software/opensource/gperf-3.0.4
+  changed_when: false
+  register: gperf
+
+- name: Install gperf-3.0.4
+  when: not gperf.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/gperf-3.0.4.tar.gz -C /shared/software/opensource
+    cd /shared/software/opensource/gperf-3.0.4
+    ./configure
+    make
+    make install
+
+- name: Check for graywolf installation
+  stat: path=/shared/software/opensource/graywolf-0.1.6
+  changed_when: false
+  register: graywolf
+
+- name: Install graywolf-0.1.6
+  when: not graywolf.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/graywolf-0.1.6.tar.gz -C /shared/software/opensource
+    cd /shared/software/opensource/graywolf-0.1.6
+    mkdir build
+    cd build
+    cmake ..
+    make
+    make install
+
+- name: Check for Magic installation
+  stat: path=/shared/software/opensource/magic-8.2.150
+  changed_when: false
+  register: magic
+
+- name: Install Magic
+  when: not magic.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/magic-8.2.150.tgz -C /shared/software/opensource
+    cd /shared/software/opensource/magic-8.2.150
+    ./configure
     make
     make install
 
