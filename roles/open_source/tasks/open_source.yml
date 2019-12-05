@@ -18,6 +18,7 @@
       - mesa-libGLU-devel
       - cairo-devel
       - libtool
+      - libXt-devel
     state: installed
 
 - name: Check for Icarus Verilog installation
@@ -141,6 +142,21 @@
     mkdir -p /shared/software/opensource
     tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/netgen-1.5.132.tgz -C /shared/software/opensource
     cd /shared/software/opensource/netgen-1.5.132
+    ./configure
+    make
+    make install
+
+- name: Check for Qrouter installation
+  stat: path=/shared/software/opensource/qrouter-1.4.59
+  changed_when: false
+  register: qrouter
+
+- name: Install Qrouter
+  when: not qrouter.stat.exists
+  shell: |
+    mkdir -p /shared/software/opensource
+    tar xf {{ ansible_env.ANSIBLE_INSTALL_SOURCE_DIR }}/qrouter-1.4.59.tgz -C /shared/software/opensource
+    cd /shared/software/opensource/qrouter-1.4.59
     ./configure
     make
     make install
